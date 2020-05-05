@@ -10,6 +10,7 @@ const DEFAULT_COUNT = 1;
 const FULL_TEXT_MIN = 5;
 const ANNOUNCE_COUNT = 5;
 const PREV_MONTH_COUNT = 3;
+const MAX_OFFERS = 1000;
 const FILE_NAME = `mocks.json`;
 
 const TITLES = [
@@ -83,7 +84,7 @@ module.exports = {
     const [count] = args;
     const countOffer = Number.parseInt(count, 10) || DEFAULT_COUNT;
 
-    if (countOffer > 1000) {
+    if (countOffer > MAX_OFFERS) {
       console.log(`Не больше 1000 объявлений.`);
       return;
     }
