@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const MAX_ID_LENGTH = 6;
 const USER_ARGV_INDEX = 2;
@@ -20,6 +20,11 @@ const HttpCode = {
   BAD_REQUEST: 400,
 };
 
+const Env = {
+  DEVELOPMENT: `development`,
+  PRODUCTION: `production`,
+};
+
 module.exports = {
   MAX_ID_LENGTH,
   DEFAULT_COMMAND,
@@ -27,4 +32,5 @@ module.exports = {
   API_PREFIX,
   ExitCode,
   HttpCode,
+  Env,
 };
