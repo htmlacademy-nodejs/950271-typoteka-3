@@ -91,17 +91,6 @@ describe(`Article API`, () => {
       .expect(HttpCode.BAD_REQUEST);
   });
 
-  test(`Should correctly deletes an article`, async () => {
-    const response = await request(api)
-      .delete(`/articles/${mockData[1].id}`);
-
-    expect(response.statusCode).toBe(HttpCode.OK);
-    expect(response.body.id).toBe(mockData[1].id);
-    await request(api)
-      .get(`/articles`)
-      .expect((res) => expect(res.body.length).toBe(mockData.length - 1));
-  });
-
   test(`Should refuses to delete non-existent article`, async () => {
     await request(api).delete(`/articles/NOEXST`).expect(HttpCode.NOT_FOUND);
   });
@@ -144,20 +133,6 @@ describe(`Article API`, () => {
       .post(`/articles/${mockData[0].id}/comments`)
       .send({})
       .expect(HttpCode.BAD_REQUEST);
-  });
-
-  test(`Should correctly deletes a comment`, async () => {
-    const response = await request(api).delete(
-        `/articles/${mockData[0].id}/comments/${mockData[0].comments[0].id}`
-    );
-
-    expect(response.statusCode).toBe(HttpCode.OK);
-    expect(response.body.id).toBe(mockData[0].comments[0].id);
-    await request(api)
-      .get(`/articles/${mockData[0].id}/comments`)
-      .expect((res) =>
-        expect(res.body.length).toBe(mockData[0].comments.length - 1)
-      );
   });
 
   test(`Should refuses to delete non-existent comment`, async () => {
