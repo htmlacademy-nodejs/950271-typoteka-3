@@ -4,9 +4,7 @@ const {Router} = require(`express`);
 const category = require(`../api/category`);
 const search = require(`../api/search`);
 const article = require(`./article`);
-
 const getMockData = require(`../lib/get-mock-data`);
-
 const {
   CategoryService,
   SearchService,

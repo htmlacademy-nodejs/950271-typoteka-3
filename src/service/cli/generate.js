@@ -8,6 +8,10 @@ const {
   shuffle,
 } = require(`../../utils`);
 const {MAX_ID_LENGTH} = require(`../../constants`);
+const FILE_TITLES_PATH = `./data/titles.txt`;
+const FILE_SENTENCES_PATH = `./data/sentences.txt`;
+const FILE_CATEGORIES_PATH = `./data/categories.txt`;
+const FILE_COMMENTS_PATH = `./data/comments.txt`;
 
 const DEFAULT_COUNT = 1;
 const FULL_TEXT_MIN = 5;
@@ -16,11 +20,6 @@ const PREV_MONTH_COUNT = 3;
 const MAX_COMMENTS = 10;
 const MAX_OFFERS = 1000;
 const FILE_NAME = `mocks.json`;
-
-const FILE_TITLES_PATH = `./data/titles.txt`;
-const FILE_SENTENCES_PATH = `./data/sentences.txt`;
-const FILE_CATEGORIES_PATH = `./data/categories.txt`;
-const FILE_COMMENTS_PATH = `./data/comments.txt`;
 
 const readContent = async (filePath) => {
   try {
