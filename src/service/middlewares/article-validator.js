@@ -10,8 +10,8 @@ const articleKeys = [
 ];
 
 module.exports = (req, res, next) => {
-  const newOffer = req.body;
-  const keys = Object.keys(newOffer);
+  const newArticle = req.body;
+  const keys = Object.keys(newArticle);
   const keysExists = articleKeys.every((key) => keys.includes(key));
 
   if (!keysExists) {
