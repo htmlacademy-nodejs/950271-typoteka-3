@@ -4,13 +4,14 @@
   "description": "«Типотека»",
   "main": "./src/service/service.js",
   "scripts": {
-    "start": "cross-env LOG_LEVEL=error node ./src/service/service.js",
+    "start": "cross-env LOG_LEVEL=error node ./src/service/service.js --server 3000",
     "start::debug": "cross-env LOG_LEVEL=info NODE_ENV=development node ./src/service/service.js",
     "jest": "jest",
     "test": "npm run eslint && npm run jest",
     "eslint": "eslint --ext .js src/",
     "start.dev": "cross-env LOG_LEVEL=info NODE_ENV=development nodemon ./src/service.js --server 3000",
-    "start-front-server": "node ./src/express/index.js"
+    "start-front-server": "node ./src/express/index.js",
+    "get-mocks": "node ./src/service/service.js --generate 50"
   },
   "repository": {
     "type": "git",

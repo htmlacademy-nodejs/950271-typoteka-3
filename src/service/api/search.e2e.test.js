@@ -5,29 +5,35 @@ const request = require(`supertest`);
 const search = require(`./search`);
 const DataService = require(`../data-service/search`);
 const {HttpCode} = require(`../../constants`);
-const {mockData} = require(`../fixtures/search`);
+const {getTestData} = require(`../../utils`);
+const FILE_SEARCH_PATH = `./src/service/fixtures/search.json`;
 
-const app = express();
-app.use(express.json());
-search(app, new DataService(mockData));
+const createAPI = (data) => {
+  const app = express();
+  app.use(express.json());
+  search(app, new DataService(data));
+  return app;
+};
+
+let api;
+
+beforeEach(async () => {
+  const data = await getTestData(FILE_SEARCH_PATH);
+  api = createAPI(data);
+});
 
 describe(`Search API`, () => {
-  let response;
-
-  beforeAll(async () => {
-    response = await request(app).get(`/search`).query({
+  test(`Should successful search`, async () => {
+    const response = await request(api).get(`/search`).query({
       query: `Кино`,
     });
-  });
-
-  test(`Should successful search`, () => {
     expect(response.statusCode).toBe(HttpCode.OK);
     expect(response.body.length).toBe(1);
     expect(response.body[0].id).toBe(`OAsPMB`);
   });
 
   test(`API returns code 404 if nothing is found`, () =>
-    request(app)
+    request(api)
       .get(`/search`)
       .query({
         query: `Продам свою душу`,
@@ -35,5 +41,5 @@ describe(`Search API`, () => {
       .expect(HttpCode.NOT_FOUND));
 
   test(`API returns 400 when query string is absent`, () =>
-    request(app).get(`/search`).expect(HttpCode.BAD_REQUEST));
+    request(api).get(`/search`).expect(HttpCode.BAD_REQUEST));
 });

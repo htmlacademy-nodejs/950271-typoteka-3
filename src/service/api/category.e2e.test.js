@@ -5,20 +5,27 @@ const request = require(`supertest`);
 const category = require(`./category`);
 const DataService = require(`../data-service/category`);
 const {HttpCode} = require(`../../constants`);
-const {mockData} = require(`../fixtures/category`);
+const {getTestData} = require(`../../utils`);
+const FILE_CATEGORY_PATH = `./src/service/fixtures/category.json`;
 
-const app = express();
-app.use(express.json());
-category(app, new DataService(mockData));
+const createAPI = (data) => {
+  const app = express();
+  app.use(express.json());
+  category(app, new DataService(data));
+  return app;
+};
+
+let api;
+
+beforeEach(async () => {
+  const data = await getTestData(FILE_CATEGORY_PATH);
+  api = createAPI(data);
+});
 
 describe(`Category API`, () => {
-  let response;
+  test(`Should return list of all articles`, async () => {
+    const response = await request(api).get(`/categories`);
 
-  beforeAll(async () => {
-    response = await request(app).get(`/categories`);
-  });
-
-  test(`Should return list of all articles`, () => {
     expect(response.statusCode).toBe(HttpCode.OK);
     expect(response.body.length).toBe(4);
     expect(response.body).toEqual(
